@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Wellness Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #3a7ca5;
+        }
+        #challenge-container {
+            margin: 20px 0;
+            min-height: 150px;
+        }
+        .challenge-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .challenge-card h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .challenge-card p {
+            color: #34495e;
+            line-height: 1.5;
+        }
+        button {
+            background-color: #3a7ca5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2c5d7c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Daily Wellness Challenge</h1>
+    <p>Click the button below to get a random wellness challenge for today!</p>
+    <button id="get-challenge">Get Challenge</button>
+    <div id="challenge-container"></div>
+
+    <script>
+        const challenges = [
+            {
+                title: "5-Minute Mindfulness Meditation",
+                description: "Take 5 minutes to sit quietly, focus on your breath, and observe your thoughts without judgment."
+            },
+            {
+                title: "Gratitude Practice",
+                description: "Write down three things you're grateful for today, no matter how small they seem."
+            },
+            {
+                title: "Digital Detox",
+                description: "Take a 2-hour break from all digital devices and notice how it affects your mood and thoughts."
+            },
+            {
+                title: "Random Act of Kindness",
+                description: "Do something kind for someone else today without expecting anything in return."
+            },
+            {
+                title: "Nature Connection",
+                description: "Spend at least 15 minutes outside, paying attention to the natural elements around you."
+            },
+            {
+                title: "Positive Affirmations",
+                description: "Create and repeat three positive statements about yourself throughout the day."
+            },
+            {
+                title: "Creative Expression",
+                description: "Spend 20 minutes doing something creative - drawing, writing, singing, dancing - without worrying about the result."
+            }
+        ];
+
+        document.getElementById('get-challenge').addEventListener('click', function() {
+            const challengeContainer = document.getElementById('challenge-container');
+            const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+            
+            const challengeElement = document.createElement('div');
+            challengeElement.className = 'challenge-card';
+            challengeElement.innerHTML = `
+                <h2>${randomChallenge.title}</h2>
+                <p>${randomChallenge.description}</p>
+            `;
+            
+            // Clear previous challenge and add new one
+            challengeContainer.innerHTML = '';
+            challengeContainer.appendChild(challengeElement);
+        });
+    </script>
+</body>
+</html>
