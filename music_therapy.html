@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Therapy</title>
+    <style>
+        /* Basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background-color: #5D8AA8;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        
+        h2 {
+            color: #5D8AA8;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        p {
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Playlist mood selector */
+        .playlist {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .playlist-item {
+            background-color: white;
+            border: 2px solid #5D8AA8;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: #5D8AA8;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .playlist-item:hover {
+            background-color: #5D8AA8;
+            color: white;
+        }
+        
+        .playlist-item.active {
+            background-color: #5D8AA8;
+            color: white;
+        }
+        
+        /* Results section */
+        .result {
+            min-height: 200px;
+            padding: 1rem 0;
+        }
+        
+        /* Song cards */
+        .songs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .song-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .song-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .song-image {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #90B8D4;
+            cursor: pointer;
+        }
+        
+        .music-logo {
+            font-size: 4rem;
+            color: white;
+        }
+        
+        .song-info {
+            padding: 1rem;
+        }
+        
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+        
+        .song-artist {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Loading indicator */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .songs-container {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            
+            .playlist {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="mental_health.html" class="back-link" id="back-button">
+                ← Back to Mental Health
+            </a>
+        </nav>
+    </header>
+
+    <section>
+        <div class="container fade-in">
+            <h2>Music Therapy</h2>
+            <p>Music can help reduce stress, anxiety, and promote relaxation. Select a mood below to discover songs that can help improve your mental well-being:</p>
+            <div class="playlist">
+                <div class="playlist-item" data-mood="relaxation">Deep Relaxation</div>
+                <div class="playlist-item" data-mood="focus">Focus & Concentration</div>
+                <div class="playlist-item" data-mood="sleep">Sleep Aid</div>
+                <div class="playlist-item" data-mood="anxiety">Anxiety Relief</div>
+                <div class="playlist-item" data-mood="sad">Sad Mood</div>
+                <div class="playlist-item" data-mood="motivational">Motivational</div>
+                <div class="playlist-item" data-mood="stress">Stress Relief</div>
+            </div>
+            <div id="playlist-result" class="result">
+                <p>Please select a mood to see song recommendations</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Song recommendations database
+            const songDatabase = {
+                relaxation: [
+                    { title: "Weightless", artist: "Marconi Union", youtubeId: "UfcAVejslrU" },
+                    { title: "Watermark", artist: "Enya", youtubeId: "NO5tb20qWuA" },
+                    { title: "Piano Sonata No. 14", artist: "Ludwig van Beethoven", youtubeId: "4Tr0otuiQuU" },
+                    { title: "Clair de Lune", artist: "Claude Debussy", youtubeId: "CvFH_6DNRCY" }
+                ],
+                focus: [
+                    { title: "Divenire", artist: "Ludovico Einaudi", youtubeId: "X1DRDcGlSsE" },
+                    { title: "Experience", artist: "Ludovico Einaudi", youtubeId: "hN_q-K9vfoU" },
+                    { title: "Time", artist: "Hans Zimmer", youtubeId: "RxabLA7UQ9k" },
+                    { title: "The Four Seasons: Spring", artist: "Antonio Vivaldi", youtubeId: "mFWQgxXM_b8" }
+                ],
+                sleep: [
+                    { title: "Sleepwalking", artist: "Brian Eno", youtubeId: "BZbD_0_ubO8" },
+                    { title: "Dream 3", artist: "Max Richter", youtubeId: "AwpWZVG5SsQ" },
+                    { title: "Sleep", artist: "Eric Whitacre", youtubeId: "6WhWDCw3Mng" },
+                    { title: "Adagio for Strings", artist: "Samuel Barber", youtubeId: "N3MHeNt6Yjs" }
+                ],
+                anxiety: [
+                    { title: "Breathe", artist: "Pink Floyd", youtubeId: "mrojrDCI02k" },
+                    { title: "Gymnopédie No.1", artist: "Erik Satie", youtubeId: "S-Xm7s9eGxU" },
+                    { title: "Airstream", artist: "Electra", youtubeId: "qiZ_hzw_xAc" },
+                    { title: "Into Dust", artist: "Mazzy Star", youtubeId: "SiO_7LhPZFM" }
+                ],
+                sad: [
+                    { title: "Someone Like You", artist: "Adele", youtubeId: "hLQl3WQQoQ0" },
+                    { title: "Hurt", artist: "Johnny Cash", youtubeId: "8AHCfZTRGiI" },
+                    { title: "Mad World", artist: "Gary Jules", youtubeId: "4N3N1MlvVc4" },
+                    { title: "Fix You", artist: "Coldplay", youtubeId: "k4V3Mo61fJM" }
+                ],
+                motivational: [
+                    { title: "Hall of Fame", artist: "The Script ft. will.i.am", youtubeId: "mk48xRzuNvA" },
+                    { title: "Eye of the Tiger", artist: "Survivor", youtubeId: "btPJPFnesV4" },
+                    { title: "Roar", artist: "Katy Perry", youtubeId: "CevxZvSJLk8" },
+                    { title: "Unstoppable", artist: "Sia", youtubeId: "YaEG2aWJnZ8" }
+                ],
+                stress: [
+                    { title: "Horizon Variations", artist: "Max Richter", youtubeId: "8DdOqHzF_yg" },
+                    { title: "Ocean", artist: "John Butler", youtubeId: "jdYJf_ybyVo" },
+                    { title: "Orinoco Flow", artist: "Enya", youtubeId: "LTrk4X9ACtw" },
+                    { title: "Aqueous Transmission", artist: "Incubus", youtubeId: "eQK7KSTQfaw" }
+                ]
+            };
+
+            // DOM elements
+            const playlistItems = document.querySelectorAll('.playlist-item');
+            const playlistResult = document.getElementById('playlist-result');
+            const backButton = document.getElementById('back-button');
+
+            // Add event listener for back button
+            backButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert("This would navigate back to the Mental Health page in a real application.");
+            });
+
+            // Function to open YouTube link
+            function openYouTube(videoId) {
+                window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+            }
+
+            // Make the openYouTube function globally available
+            window.openYouTube = openYouTube;
+
+            // Function to display songs for a specific mood
+            function displaySongs(mood) {
+                const songs = songDatabase[mood];
+                
+                if (!songs || songs.length === 0) {
+                    playlistResult.innerHTML = '<p>No songs found for this mood.</p>';
+                    return;
+                }
+                
+                // Create song cards container
+                let songsHTML = '<div class="songs-container">';
+                
+                // Add song cards
+                songs.forEach(song => {
+                    songsHTML += `
+                        <div class="song-card">
+                            <div class="song-image" onclick="openYouTube('${song.youtubeId}')">
+                                <div class="music-logo">🎵</div>
+                            </div>
+                            <div class="song-info">
+                                <div class="song-title">${song.title}</div>
+                                <div class="song-artist">${song.artist}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                songsHTML += '</div>';
+                playlistResult.innerHTML = songsHTML;
+            }
+
+            // Add event listeners to mood selectors
+            playlistItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Update active state
+                    playlistItems.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show loading state
+                    playlistResult.innerHTML = '<div class="loading">Loading recommendations...</div>';
+                    
+                    // Get mood from data attribute
+                    const mood = this.getAttribute('data-mood');
+                    
+                    // Simulate loading (for better UX)
+                    setTimeout(() => {
+                        // Load songs for the selected mood
+                        displaySongs(mood);
+                    }, 800);
+                });
+            });
+
+            // Select the first mood by default
+            if (playlistItems.length > 0) {
+                playlistItems[0].click();
+            }
+        });
+    </script>
+</body>
+</html>
