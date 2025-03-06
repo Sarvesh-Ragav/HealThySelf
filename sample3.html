@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Hub - Your Complete Health Resource</title>
+
+  <style>  :root {
+    --primary: #514929;       
+    --primary-dark: #514929; 
+    --primary-light: #c9ba65; 
+    --accent: #c9ba65;     
+    --light: #eee4aa;         
+    --dark: #4a4a4a;        
+    --danger: #e07a5f;       
+    --success: #c9ba65;      
+    --physical-health: #514929;  
+    --mental-health: #514929;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+section {
+    padding: 6rem 0;
+    scroll-margin-top: 5rem;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://via.placeholder.com/1920x1080');
+    background-size: cover;
+    background-position: center;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary);
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--primary-dark);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin-bottom: 3rem;
+}
+
+/* Button Container */
+.button {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+/* Buttons Styling */
+.health-button {
+    padding: 15px 30px; /* Adjusted padding */
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px; /* Rounded corners */
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+/* Physical Health Button */
+.physical-health {
+    background-color: #4a432a;
+    color: white;
+}
+
+/* Mental Health Button */
+.mental-health {
+    background-color: #d4c77c;
+    color: black;
+}
+
+/* Hover Effects */
+.physical-health:hover {
+    background-color: #5b5135;
+}
+
+.mental-health:hover {
+    background-color: #c8bb6e;
+}
+
+/* 🔹 Back Link Styling */
+.back-link {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--primary-dark); 
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--light); 
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.back-link:hover {
+    background-color: var(--primary-light); 
+    color: var(--dark);
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card h3 {
+    margin-bottom: 1.5rem;
+}
+
+form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+label {
+    font-weight: 500;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.result {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--primary-light);
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    display: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.playlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.playlist-item {
+    background-color: var(--primary-light);
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.playlist-item:hover {
+    background-color: var(--primary);
+}
+
+footer {
+    background-color: var(--primary-dark);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .btn-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-out;
+}
+
+</style>      
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">HealThySelf</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#physical">Physical Health</a>
+                <a href="#mental">Mental Health</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container fade-in">
+            <h1>Rewrite Your Health Story</h1>
+            <p>Discover comprehensive tools and resources to improve both your physical and mental wellbeing in one place.</p>
+            <div class="button">
+                <button class="health-button physical-health" onclick="location.href='physical_health.html'">Physical Health</button>
+                <button class="health-button mental-health" onclick="location.href='mental_health.html'">Mental Health</button>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 HealThySelf. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate elements on scroll
+        function fadeInOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', fadeInOnScroll);
+        fadeInOnScroll();
+        
+        // Venting Space (Simple chatbot)
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('user-message').value;
+            const chatContainer = document.getElementById('chat-container');
+
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chat-message user-message';
+            userMessage.textContent = userInput;
+            chatContainer.appendChild(userMessage);
+
+            // Prepare bot response
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chat-message bot-message';
+                
+                // Simple response logic
+                if (userInput.toLowerCase().includes('sad') || userInput.toLowerCase().includes('depress') || userInput.toLowerCase().includes('unhappy')) {
+                    botMessage.textContent = "I'm sorry to hear you're feeling down. Remember that it's okay to have these feelings, and they don't define you. Consider talking to someone you trust or a professional about these feelings.";
+                } else if (userInput.toLowerCase().includes('anxious') || userInput.toLowerCase().includes('worry') || userInput.toLowerCase().includes('stress')) {
+                    botMessage.textContent = "Anxiety can be challenging. Try taking some deep breaths - inhale for 4 seconds, hold for 4, exhale for 6. This can help calm your nervous system. Remember that you've overcome difficult moments before.";
+                } else if (userInput.toLowerCase().includes('happy') || userInput.toLowerCase().includes('good') || userInput.toLowerCase().includes('great')) {
+                    botMessage.textContent = "That's wonderful to hear! Celebrating positive emotions is important. What specific things contributed to these good feelings?";
+                } else {
+                    botMessage.textContent = "Thank you for sharing. How does expressing that make you feel? Remember that your feelings are valid, and it takes courage to express them.";
+                }
+                
+                chatContainer.appendChild(botMessage);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+
+            // Clear input field
+            document.getElementById('user-message').value = '';
+        });
+
+        
+    </script>
+</body>
+</html>
