@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dopamine Detox with Pomodoro Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn {
+            background-color: #5D8AA8;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #4d7e98;
+        }
+        
+        #timer-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #5D8AA8;
+        }
+        
+        #detox-info {
+            display: none;
+            padding: 20px;
+            background-color: #f7d7d7;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dopamine Detox with Pomodoro Timer</h1>
+        <p>Take control of your focus and productivity!</p>
+        
+        <h2>Select Detox Duration (minutes)</h2>
+        <input type="number" id="detox-time-input" placeholder="Enter time in minutes" min="1" required>
+        <button class="btn" id="start-detox-btn">Start Detox</button>
+        
+        <div id="detox-info">
+            <h3>Detox In Progress...</h3>
+            <p id="detox-time-display">00:00</p>
+            <button class="btn" id="stop-btn">Stop Detox</button>
+        </div>
+        
+        <h2>Pomodoro Timer</h2>
+        <p id="timer-display">25:00</p>
+        <button class="btn" id="start-btn">Start Pomodoro</button>
+        <button class="btn" id="reset-btn">Reset</button>
+    </div>
+
+    <script>
+        let detoxInterval, pomodoroInterval;
+        let detoxTime, pomodoroTime = 25 * 60;
+        
+        document.getElementById('start-detox-btn').addEventListener('click', () => {
+            let timeInput = document.getElementById('detox-time-input').value;
+            if (timeInput && timeInput > 0) {
+                detoxTime = timeInput * 60;
+                document.getElementById('detox-info').style.display = 'block';
+                detoxInterval = setInterval(() => {
+                    let minutes = Math.floor(detoxTime / 60);
+                    let seconds = detoxTime % 60;
+                    document.getElementById('detox-time-display').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    if (detoxTime-- <= 0) {
+                        clearInterval(detoxInterval);
+                        alert("Detox Complete!");
+                    }
+                }, 1000);
+                document.getElementById('start-detox-btn').disabled = true;
+            } else {
+                alert("Please enter a valid time.");
+            }
+        });
+        
+        document.getElementById('stop-btn').addEventListener('click', () => {
+            clearInterval(detoxInterval);
+            document.getElementById('detox-info').style.display = 'none';
+            document.getElementById('start-detox-btn').disabled = false;
+        });
+        
+        document.getElementById('start-btn').addEventListener('click', () => {
+            clearInterval(pomodoroInterval);
+            pomodoroInterval = setInterval(() => {
+                let minutes = Math.floor(pomodoroTime / 60);
+                let seconds = pomodoroTime % 60;
+                document.getElementById('timer-display').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                if (pomodoroTime-- <= 0) {
+                    clearInterval(pomodoroInterval);
+                    alert("Pomodoro session completed!");
+                }
+            }, 1000);
+        });
+        
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            clearInterval(pomodoroInterval);
+            pomodoroTime = 25 * 60;
+            document.getElementById('timer-display').textContent = '25:00';
+        });
+    </script>
+</body>
+</html>
