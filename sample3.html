@@ -374,42 +374,7 @@ footer {
         window.addEventListener('scroll', fadeInOnScroll);
         fadeInOnScroll();
         
-        // Venting Space (Simple chatbot)
-        document.getElementById('chat-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const userInput = document.getElementById('user-message').value;
-            const chatContainer = document.getElementById('chat-container');
-
-            // Add user message
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chat-message user-message';
-            userMessage.textContent = userInput;
-            chatContainer.appendChild(userMessage);
-
-            // Prepare bot response
-            setTimeout(() => {
-                const botMessage = document.createElement('div');
-                botMessage.className = 'chat-message bot-message';
-                
-                // Simple response logic
-                if (userInput.toLowerCase().includes('sad') || userInput.toLowerCase().includes('depress') || userInput.toLowerCase().includes('unhappy')) {
-                    botMessage.textContent = "I'm sorry to hear you're feeling down. Remember that it's okay to have these feelings, and they don't define you. Consider talking to someone you trust or a professional about these feelings.";
-                } else if (userInput.toLowerCase().includes('anxious') || userInput.toLowerCase().includes('worry') || userInput.toLowerCase().includes('stress')) {
-                    botMessage.textContent = "Anxiety can be challenging. Try taking some deep breaths - inhale for 4 seconds, hold for 4, exhale for 6. This can help calm your nervous system. Remember that you've overcome difficult moments before.";
-                } else if (userInput.toLowerCase().includes('happy') || userInput.toLowerCase().includes('good') || userInput.toLowerCase().includes('great')) {
-                    botMessage.textContent = "That's wonderful to hear! Celebrating positive emotions is important. What specific things contributed to these good feelings?";
-                } else {
-                    botMessage.textContent = "Thank you for sharing. How does expressing that make you feel? Remember that your feelings are valid, and it takes courage to express them.";
-                }
-                
-                chatContainer.appendChild(botMessage);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }, 1000);
-
-            // Clear input field
-            document.getElementById('user-message').value = '';
-        });
-
+        
         
     </script>
 </body>
